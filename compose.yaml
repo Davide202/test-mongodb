@@ -1,0 +1,15 @@
+services:
+  mongodb:
+    image: mongo:latest
+    restart: always
+    container_name: mongo_db
+    environment:
+      - MONGO_INITDB_DATABASE=mygrocerylist
+      - MONGO_INITDB_ROOT_PASSWORD=secret
+      - MONGO_INITDB_ROOT_USERNAME=root
+    ports:
+      - '27018:27017'
+    volumes:
+      - data:/var/lib/mongodb
+volumes:
+  data:

@@ -1,0 +1,39 @@
+services:
+  mongodb:
+    image: mongo:latest
+    restart: always
+    container_name: mongo_db
+    environment:
+      - MONGO_INITDB_DATABASE=mygrocerylist
+      - MONGO_INITDB_ROOT_PASSWORD=secret
+      - MONGO_INITDB_ROOT_USERNAME=root
+    ports:
+      - '27018:27017'
+    volumes:
+      - data:/var/lib/mongodb
+  mysql:
+    image: mysql:5.7
+    container_name: mysql57_db
+    environment:
+      - MYSQL_USER=user
+      - MYSQL_PASSWORD=password
+      - MYSQL_ROOT_PASSWORD=admin
+      - MYSQL_DATABASE=default
+    ports:
+      - 3306:3306
+      - 43306:3306
+    volumes:
+      - data:/var/lib/mysql
+  postgres:
+    image: postgres
+    restart: always
+    container_name: postgres_db
+    environment:
+      - POSTGRES_PASSWORD=secret
+      - POSTGRES_USER=root
+    ports:
+      - 1000:5432
+    volumes:
+      - data:/var/lib/postgres
+volumes:
+  data:

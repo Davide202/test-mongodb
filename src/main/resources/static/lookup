@@ -1,0 +1,61 @@
+Executing aggregation: [
+{ "$match" : { "basketId" : "597ee973-2e10-4df0-a584-279522011bdb", "$exists" : true}}, -> ERRORE
+{ "$lookup" : { "from" : "basket", "localField" : "basketId", "foreignField" : "_id", "as" : "basket"}},
+{ "$sort" : { "quantity" : -1}},
+{ "$project" : { "id" : 1, "basketId" : 1, "name" : 1, "quantity" : 1, "category" : 1, "ingredients" : 1, "basket" : 1}}
+] in collection groceryitems
+
+Executing aggregation: [
+{ "$match" : { "basketId" : { "$exists" : true, "$ne" : "null"}}},
+{ "$lookup" : { "from" : "basket", "localField" : "basketId", "foreignField" : "_id", "as" : "basket"}},
+{ "$sort" : { "quantity" : -1}},
+{ "$project" : { "id" : 1, "basketId" : 1, "name" : 1, "quantity" : 1, "category" : 1, "ingredients" : 1, "basket" : 1}}
+] in collection groceryitems
+
+[
+  {
+    $match:
+      /**
+       * query: The query in MQL.
+       */
+      {
+        basketId: {
+          $exists: true,
+          $ne: "null",
+        },
+      },
+  },
+  {
+    $lookup:
+      /**
+       * from: The target collection.
+       * localField: The local join field.
+       * foreignField: The target join field.
+       * as: The name for the results.
+       * pipeline: Optional pipeline to run on the foreign collection.
+       * let: Optional variables to use in the pipeline field stages.
+       */
+      {
+        from: "basket",
+        localField: "basketId",
+        foreignField: "_id",
+        as: "basket",
+      },
+  },
+  {
+    $project:
+      /**
+       * specifications: The fields to
+       *   include or exclude.
+       */
+      {
+        _id: 1,
+        basketId: 1,
+        name: 1,
+        quantity: 1,
+        category: 1,
+        ingredients: 1,
+        basket: 1,
+      },
+  },
+]

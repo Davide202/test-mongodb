@@ -1,0 +1,36 @@
+Configuration:
+  status: warn
+  name: YAMLConfigTest
+  properties:
+    property:
+      name: filename
+      value: target/test-yaml.log
+  thresholdFilter:
+    level: debug
+  Appenders:
+    Console:
+      name: STDOUT
+      target: SYSTEM_OUT
+      PatternLayout:
+        Pattern: '[%d{ISO8601}] [%p] [%c:%L] [${env:ENV_NAME:-mongodb_test}] [%X{cid}] - %m%n'
+    File:
+      name: File
+      fileName: ${filename}
+      PatternLayout:
+#        Pattern: "%d %p %C{1.} [%t] %m%n"
+        Pattern: '[%d{ISO8601}] [%p] [%c:%L] [${env:ENV_NAME:-mongodb_test}] [%X{cid}] - %m%n'
+      Filters:
+        ThresholdFilter:
+          level: error
+
+  Loggers:
+    logger:
+      - name: com.example.mongodbtests.service
+        level: debug
+      - name: org.springframework.data.mongodb.core.MongoTemplate
+        level: debug
+
+    Root:
+      level: debug
+      AppenderRef:
+        ref: STDOUT
